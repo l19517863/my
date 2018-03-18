@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>JS正则</title>
+</head>
+<body>
+
+    <form action="" method="POST" onsubmit="return check()">
+
+        邮箱:<input type="text" name="mail" id="mail"><br>
+        用户名: <input type="text" name="uname" id="uname"><br>
+        密码：<input type="password" name="pwd" id="pwd"><br>
+
+        <input type="submit" value="提交">
+
+    </form>
+</body>
+</html>
+<script>
+    function check() {
+        var mail = document.getElementById("mail").value();
+        var uname = document.getElementById("uname").value();
+        var pwd = document.getElementById("pwd").value();
+        var patt_mail = /^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/;
+
+        if (patt_mail.test(mail)) {
+            alert("匹配成功");
+        } else {
+            alert("失败");
+        }
+
+
+    }
+
+
+
+</script>

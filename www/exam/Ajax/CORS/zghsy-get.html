@@ -1,0 +1,96 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+<script src="js/jquery-3.2.1.min.js"></script>
+<script>
+
+	$(function(){
+		
+		//添加按钮事件
+		$("#btn").click(function(){
+			
+			//获取用户输入的内容
+			 var contentStr = $("#content").val();
+			
+			//发送异步请求--------开始
+			 
+			//第一步：创建XMLHttpRequest对象
+			var xhr = new XMLHttpRequest();
+			//第二步：设定和服务器端交互的参数
+			var urlStr = "./comment-server.php?contentStr="+contentStr;
+			//第三步：向服务器端发送请求
+			xhr.open('post',urlStr,true);
+			xhr.send();
+			//第四步：注册回调方法
+			xhr.onreadystatechange = function(){
+				
+				//第五步：判断和服务器是否交互完成
+			 	if(xhr.readyState==4){
+			 		
+			 		//把评论显示在div中
+			 		$("#comment").html($("#comment").html()+"<br>"+xhr.responseText);
+			 		//清空输入框
+			 		$("#content").val("");
+			 		
+			 	}
+				
+				
+			}
+			//发送异步请求--------结束
+			 
+			
+			
+		});
+		
+	});
+	
+
+
+</script>
+</head>
+
+<body>
+
+
+<h1>中国好声音第五季</h1>
+<div id="video1">
+  <object id="FlashID" classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" width="600" height="400">
+    <param name="movie" value="hamster.swf" />
+    <param name="quality" value="high" />
+    <param name="wmode" value="opaque" />
+    <param name="swfversion" value="9.0.45.0" />
+    <!-- 此 param 标签提示使用 Flash Player 6.0 r65 和更高版本的用户下载最新版本的 Flash Player。如果您不想让用户看到该提示，请将其删除。 -->
+    <param name="expressinstall" value="../Scripts/expressInstall.swf" />
+    <!-- 下一个对象标签用于非 IE 浏览器。所以使用 IECC 将其从 IE 隐藏。 -->
+    <!--[if !IE]>-->
+    <object type="application/x-shockwave-flash" data="hamster.swf" width="600" height="400">
+      <!--<![endif]-->
+      <param name="quality" value="high" />
+      <param name="wmode" value="opaque" />
+      <param name="swfversion" value="9.0.45.0" />
+      <param name="expressinstall" value="../Scripts/expressInstall.swf" />
+      <!-- 浏览器将以下替代内容显示给使用 Flash Player 6.0 和更低版本的用户。 -->
+      <div>
+        <h4>此页面上的内容需要较新版本的 Adobe Flash Player。</h4>
+        <p><a href="http://www.adobe.com/go/getflashplayer"><img src="http://www.adobe.com/images/shared/download_buttons/get_flash_player.gif" alt="获取 Adobe Flash Player" width="112" height="33" /></a></p>
+      </div>
+      <!--[if !IE]>-->
+    </object>
+    <!--<![endif]-->
+  </object>
+
+</div>
+<script type="text/javascript">
+swfobject.registerObject("FlashID");
+</script>
+<br>
+<textarea id="content" cols="50" rows="3"></textarea>
+<input type="button" id="btn" value="发表评论" />
+
+<div id="comment" style="background-color: #FFC; border:1px dashed blue; width:600px; height:300px;">
+
+</div>
+</body>
+</html>

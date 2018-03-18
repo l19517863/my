@@ -1,0 +1,237 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>表单验证(插件)</title>
+	<script src="./js/jquery-3.2.1.min.js"></script>
+	<script src="./js/jquery.validate-1.17.0.min.js"></script>
+</head>
+<style>
+	.info{
+		font-size: 12px;
+		color: red;
+	}
+</style>
+
+	<script>
+	
+		$(function (){
+				//  设置 #form1  的   表单规则
+			$("#form1").validate({
+				"errorEvent":"i",// 
+				"debug":true,//  调试 用 不提交 表单
+				"rules":{
+					// 设置 规则
+					"uname":{
+						"required":true,
+						"checkuname":8,
+						// "spchar":-1,//校验值
+					},
+					"pwd":{
+						"required":true,
+						"rangelength":[5,10],
+						"checkpwd":1,
+					},
+					"repwd":{
+						equalTo:"#pwd",
+					},
+					"email":{
+						"required":true,
+						// "email":true,
+						"checkMail":1,
+					},
+					"sex":{
+						
+						"required":true,
+					},
+					"hb":{
+						"required":true,
+						"minlength":2,
+						
+						
+					},
+					"idcar":{
+						
+						"required":true,
+						"idcarlength":[15,18],//  自定义 规则 传递 的 参数
+					},
+					"personNet": {
+
+						"required": true,
+						"checkPersonNet": 1,//
+					},
+					"Ubian":{
+						"required": true,
+						"checkUbian":1,
+					}
+
+					
+					
+				
+				},
+				"messages":{
+					// 修改/设置规则 提示信息
+				
+					"uname":{
+						
+						"required":"磨磨唧唧的，填个同户名都不会吗？",
+						
+					
+					},
+					"pwd":{
+						"required":"密码事必须填写的",
+						"rangelength":"密码位数在{0}-{1}之间",
+						
+					},
+					"repwd":{
+						equalTo:"输入相同的密码"
+					},
+					"email":{
+						"required":"必须填写邮箱才能找回密码",
+						"email":"邮箱格式不正确",
+					},
+					"sex":{
+						
+						"required":"选择性别",
+					},
+					"hb":{
+						"required":"至少选两个",
+						"minlength":"至少选两个",
+						
+						
+					},
+					"idcar":{
+						
+						"required":"必须填写",
+						"idcarlength":"身份证必须是{0}位或{1}数",
+					}
+					
+
+				},
+					//  错误信息   ，  发出错误信息的元素    变量 可 自定义
+				"errorPlacement":function(error,element){
+						/* 错误信息 位置  */
+						//if(element.is(":radio"))
+							//error.appendTo("#sexinfo")
+						//else //if(element.is(":"))
+							error.appendTo(element.nextAll("span:first"))//   把当前元素的 错误信息 追加到 后面的 第一个 span.info
+					}
+				
+			});
+				//  自定义规则 ：  1 规则名称， 2 校验函数   3返回错误 默认 的信息
+			$.validator.addMethod("idcarlength",function(value,element,params){
+					/* input  ， 元素      ，  校验值 */
+				var patt = /^\d{15}$|\d{17}[\dxX]$/;
+				if(patt.test(value)){
+						return true;
+				}
+
+					return false;
+
+			},"身份证必须是{0}位或{1}数(默认的自定义提示)");
+			
+				//自定义规则 需要有三个参数  1规则名 2校验函数 3规则的默认提示的错误信息。 校验函数悠悠 三个参数 1 被校验 元素的值 2 被校验 元素 3 校验值为 -1
+			$.validator.addMethod(/*规则名*/"spchar",/*校验函数*/function(/*被校验 元素的值*/value,/*被校验 元素*/element,/*校验值为 -1*/params){
+				console.log(params);
+				if(value.search(/[^\w]/)==params)
+					return true; //  只有 一句 是 不需要 括号的 
+					//  search() 在 value 中 找 特殊字符，  没找到 返回 -1， 则value 不含特殊字符   所以 设置 校验值 params 为 -1
+				return false;
+					// return 的理解不深入。 返回 一个值 并且 立即结束  函数。  所以 如果执行 return true;函数就结束了  是 不会在 执行 return false的
+				//   反之 if  条件 不成立 是 不会 执行  return true;   自然而然地  就会 执行  return false;  了 
+			// 所以 大括号 是 不需要的，  else  是不需要的;
+
+			},/*设置规则的默认提示的错误信息*/"不能有特殊字符！@#￥等");
+			
+			$.validator.addMethod("checkuname",function(value, element, params){
+				var patt = /[^\w]/;
+				if(patt.test(value) || value.length < params){
+					return false;
+				}
+				return true;
+			},"存在非法字符,或不足八位数");
+
+			$.validator.addMethod("checkpwd", function (value, element, params) {
+				var patt1 = /[A-Z]/;
+				var patt2 = /[a-z]/;
+				var patt3 = /[_]/;
+				if (patt1.test(value) && patt2.test(value) && patt3.test(value)) {
+					return true;
+				}
+				return false;
+			}, "密码必须包含大小写与下划线_!");
+
+			$.validator.addMethod("checkMail", function (value, element, params) {
+				var patt = /^\w+@\w+(\.\w+)+$/;
+				if (patt.test(value)) {
+					return true;
+				}
+				return false;
+			}, "请输入正确邮箱!");
+
+			$.validator.addMethod("checkPhone", function (value, element, params) {
+				var patt = /^1\d{10}$/;
+				if (patt.test(value)) {
+					return true;
+				}
+				return false;
+			}, "请输入正确手机号!");
+
+			$.validator.addMethod("checkUbian", function (value, element, params) {
+				var patt = /^[1-9]\d{5}$/;
+				if (patt.test(value)) {
+					return true;
+				}
+				return false;
+			}, "请输入正确邮政编码!");
+
+			$.validator.addMethod("checkPersonNet", function (value, element, params) {
+				var patt = /((http(s)?)?:\/\/)?(www\.)?[\w-]+(\.(com|cn))+/;
+				if (patt.test(value)){
+					return true;
+				}
+				return false;
+			}, "请输入正确的域名网址!");
+
+			
+
+
+
+
+
+
+
+
+
+
+
+		})
+		
+	
+	</script>
+<body>
+	<form action="http://www.czxy.com" id="form1" >
+		用户名：<input type="text" name="uname" id="uname"><span class="info">*</span><br>
+		
+		密码：<input type="password" name="pwd" id="pwd" required="true"><span class="info">*</span><br>
+		
+		确认密码：<input type="password" name="repwd" id="repwd" ><span class="info">*</span><br>
+		
+		邮箱：<input type="text" name="email" id="email" ><span class="info">*</span><br>
+
+		个人主页：<input type="text" name="personNet" id="personNet" ><span class="info">*</span><br>
+
+		地方邮编：<input type="text" name="Ubian" id="Ubian" ><span class="info">*</span><br>
+		
+		
+		性别: <input type="radio" name="sex" id="sexF" >女， <input type="radio" name="sex" id="sexM">男 <span class="info"></span><br>
+		爱好： <input type="checkbox" name="hb" id="hb1">抽烟 <input type="checkbox" name="hb" id="hb2">喝酒 <input type="checkbox" name="hb" id="hb3">喝酒<span class="info">*</span><br>
+		身份证：<input type="text" name="idcar" id="idcar">
+		<span class="info">*</span><br>
+		<input type="submit" value="注册">
+	</form>
+</body>
+</html>
+
+
+
