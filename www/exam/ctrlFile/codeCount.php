@@ -33,10 +33,11 @@ span {
 </style>
 <?php
 
+
 //    $filePath =getcwd()."\\";
     $lineCount_global = 0;
     $fileCount_global = 0;
-   $filePath = "./";
+   $filePath = "../";
    
    $allowType=['html','php']; // 统计文件 的 类型
    $disDir = [];//排除的 文件夹
@@ -44,15 +45,17 @@ span {
 
    echo "(".$filePath.")<br>";
 function dirCodeCount($d,$maxdeep=0,$deep=0,$allowFileType=['html','php']){
+        $llqchar = "utf-8";
+    $fwqchar = 'gbk';
     static $lineCount=0; // 记录代码 行数
     static $fileCount=0; // 记录文件 个数
     static $dirCount=0; // 记录文件夹 个数
 
     if(gettype($d)==='string'){
         if(substr($d,-1)=='/'){
-            $d = dir(iconv("utf-8",'gbk',$d)); //
+            $d = dir(iconv("{$llqchar}","{$fwqchar}",$d)); //
         }else {
-            $d = dir(iconv("utf-8",'gbk',$d)."/");
+            $d = dir(iconv("{$llqchar}","{$fwqchar}",$d)."/");
         }
     }
         
@@ -62,7 +65,7 @@ function dirCodeCount($d,$maxdeep=0,$deep=0,$allowFileType=['html','php']){
     if($maxdeep > 0 && $deep>=$maxdeep)
         return ;
     while (($dfile = $d->read()) !== false){
-        $file = iconv("gbk",'utf-8',$dfile);
+        $file = iconv("{$fwqchar}","{$llqchar}",$dfile);
         if($file == '.' or $file =='..')
         continue;
        
@@ -71,9 +74,9 @@ function dirCodeCount($d,$maxdeep=0,$deep=0,$allowFileType=['html','php']){
         }
             // var_dump($path);
             // var_dump($file);
-        if(is_dir($path.iconv("utf-8",'gbk',$file)) && !in_array($file,['global','Group-2'])){
+        if(is_dir($path.iconv("{$llqchar}","{$fwqchar}",$file)) && !in_array($file,['global','Group-2'])){
             echo " <font color='red'>" .$file . "(".($deep) .")</font><br>"; // filename:
-            dirCodeCount(dir($path.iconv("utf-8",'gbk',$file)."/"),$maxdeep,$deep+1,$allowFileType);
+            dirCodeCount(dir($path.iconv("{$llqchar}","{$fwqchar}",$file)."/"),$maxdeep,$deep+1,$allowFileType);
         }else {
             echo " " . $file . "<br>"; // filename:
             // echo $path.$file."()<br>";
@@ -94,7 +97,7 @@ function dirCodeCount($d,$maxdeep=0,$deep=0,$allowFileType=['html','php']){
                     $lineCount+=$temCount;
                     
                 fclose($handle);
-                echo iconv("gbk",'utf-8',$path).$file.":".$temCount."<br>";
+                echo iconv("{$fwqchar}","{$llqchar}",$path).$file.":".$temCount."<br>";
             }
             
 

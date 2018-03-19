@@ -18,7 +18,7 @@ include_once "./getUrl.php";
             fclose($handle);
         }
         echo "------------------------------------------------开始采集房源信息-------------------------------------------------<br>";
-        $sql ="select * from list_url where id>{$begin} limit 5;";
+        $sql ="select * from list_url where id>{$begin} limit 10;";
         var_dump($sql);
 
         $house_data = $pdo->query($sql);

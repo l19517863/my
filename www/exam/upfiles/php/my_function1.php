@@ -207,7 +207,7 @@ function upfiles($file_name,$allow_type,$savedir="upload/",$ismany=0,$israndname
 	//$savedir="upload/";// 存储的目录
 
 	$files=$_FILES[$file_name];//
-	// var_dump($files);
+	var_dump($files);
 
 
 	

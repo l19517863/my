@@ -17,6 +17,8 @@ function upPicPW($postName,$allowType,$saveDir="upload/",$isMany=0,$isRandName=0
     }
 
 	$files=$_FILES[$postName];//
+	var_dump($files);
+	exit;
 		// 判断 单文件 还是 多文件
 	if(!$isMany){
 		
