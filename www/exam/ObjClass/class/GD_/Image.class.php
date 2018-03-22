@@ -100,16 +100,6 @@ public static function printPicW($file,$file2= "../images/logo.png",$isRandName=
 
 }
 
-	// fn.验证码():void. 
- public static function EN_Captcha(){
-
-
-
-
-
-
- }
-
 // image 类 结束
 }
 

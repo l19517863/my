@@ -2,7 +2,7 @@
 
 require_once "./class/Loader.class.php"; // 包含自动加载类  必须用 require 否则 不执行
 Loader::$LoaderDir= "./class/";
-spl_autoload_register("Loader::robot_");
+spl_autoload_register("Loader::othert_");
 spl_autoload_register("Loader::math_");
 spl_autoload_register("Loader::final_");
 spl_autoload_register("Loader::abstruct_");

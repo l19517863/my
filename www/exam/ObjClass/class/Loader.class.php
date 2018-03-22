@@ -2,10 +2,9 @@
 
 class Loader{
     public static $LoaderDir = "class/";
-    public static function robot_($className){
+
+    public static function other_($className){
         $path = self::$LoaderDir.__FUNCTION__."/".$className.".class.php";
-        // echo $path;
-        
         if(file_exists($path)){
             include_once $path; // 在下一个 自动加载类中 继续找 不需要报错
             echo "正在自动加载类".__FUNCTION__.":{$className}<br>";
@@ -59,7 +58,7 @@ class Loader{
             echo "正在自动加载类".__FUNCTION__.":{$className}<br>";
         }
     }
-        // 原始 跟目录 加载类
+        // 原始 根目录 加载类
     public static function __autoload($className){
         $path = self::$LoaderDir.$className.".class.php";
         if(file_exists($path)){
@@ -79,11 +78,12 @@ class Loader{
 require_once "./class/Loader.class.php"; // 包含自动加载类  必须用 require 否则 不执行
 Loader::$LoaderDir= "./class/";
 spl_autoload_register("Loader::__autoload");
-spl_autoload_register("Loader::robot_");
+spl_autoload_register("Loader::othert_");
 spl_autoload_register("Loader::math_");
 spl_autoload_register("Loader::final_");
 spl_autoload_register("Loader::abstruct_");
 spl_autoload_register("Loader::upfile_");
+spl_autoload_register("Loader::GD_");
 
 */
 

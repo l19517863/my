@@ -1,16 +1,16 @@
 <?php
 
-    $str = "搜索啊啊啊asdass";
-    $a = iconv('utf-8','gbk',$str);
-    // mb_detect_encoding();
-    // function to
-        $encode = mb_detect_encoding($a, array("UTF-8","GBK","GB2312","ASCII","BIG5")); 
-        if ($encode){
-            echo "该字符串是".$encode."<br>";
-            // $keytitle = iconv("UTF-8","GBK",$keytitle); 
-        }
+require_once "./class/Loader.class.php"; // 包含自动加载类  必须用 require 否则 不执行
+Loader::$LoaderDir= "./class/";
+spl_autoload_register("Loader::__autoload");
+spl_autoload_register("Loader::other_");
+spl_autoload_register("Loader::math_");
+spl_autoload_register("Loader::final_");
+spl_autoload_register("Loader::abstruct_");
+spl_autoload_register("Loader::upfile_");
+spl_autoload_register("Loader::GD_");
 
-        phpinfo();
+Captcha::img_EN();
 
 
 

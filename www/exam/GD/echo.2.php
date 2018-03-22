@@ -5,7 +5,7 @@
     $strLen = 4;
     $str = randWordArr($strLen);
     $pixelPer = 0.05; // 噪点系数
-    $gd_imgW = 150;
+    $gd_imgW = 300;
     $gd_imgH = 60;
 
 //0、设置网页格式
