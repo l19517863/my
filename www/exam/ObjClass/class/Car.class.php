@@ -6,6 +6,8 @@ class Car
     // var $call = this;
     var $name;
     private $master; // 绑定 使用者
+    private $Ckey; // key 
+    private $key; // key 
     public static $carCount=0; // 静态变量
     function bind($obj_call){
         if($this->master==false ||$this->master==''){
@@ -14,7 +16,6 @@ class Car
         }else {
             echo "{$obj_call->name}绑定{$this->name}失败，已被{$this->master->name}绑定<br>";
         }
-        
     }
 
     function move(){
@@ -32,6 +33,10 @@ class Car
     }
     function __destruct(){
         car::$carCount-=1;
+    }
+        // 没有 该 魔术变量 会报错
+    function __get($n){
+        return "$n,不存在<br>";
     }
 
 }
