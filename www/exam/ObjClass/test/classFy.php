@@ -6,7 +6,7 @@ spl_autoload_register("Loader::__autoload");
 
 $pdo = mysqlonce::getobj("localhost","root","123qwe","58db");
  // 配置
-    $perCount = 10; 
+    $perCount = 3; 
     var_dump( $infoCount = $pdo->findOne("select count(*) count from houses_info")['count']);
     // $infoCount = 123;
     $pageCount = ceil($infoCount/$perCount);

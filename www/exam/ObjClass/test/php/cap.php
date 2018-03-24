@@ -6,6 +6,6 @@ spl_autoload_register("Loader::__autoload");
 spl_autoload_register("Loader::GD_");
 Captcha::img_EN();
 
-
+// fn::
 
 ?>

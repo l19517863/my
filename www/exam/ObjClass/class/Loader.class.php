@@ -10,6 +10,27 @@ class Loader{
             echo "正在自动加载类".__FUNCTION__.":{$className}<br>";
         }
     }
+    public static function tem1_($className){
+        $path = self::$LoaderDir.__FUNCTION__."/".$className.".class.php";
+        if(file_exists($path)){
+            include_once $path; // 在下一个 自动加载类中 继续找 不需要报错
+            echo "正在自动加载类".__FUNCTION__.":{$className}<br>";
+        }
+    }
+    public static function tem2_($className){
+        $path = self::$LoaderDir.__FUNCTION__."/".$className.".class.php";
+        if(file_exists($path)){
+            include_once $path; // 在下一个 自动加载类中 继续找 不需要报错
+            echo "正在自动加载类".__FUNCTION__.":{$className}<br>";
+        }
+    }
+    public static function Exc_($className){
+        $path = self::$LoaderDir.__FUNCTION__."/".$className.".class.php";
+        if(file_exists($path)){
+            include_once $path; // 在下一个 自动加载类中 继续找 不需要报错
+            echo "正在自动加载自定义错误类".__FUNCTION__.":{$className}<br>";
+        }
+    }
         // 在 math 寻找类
     public static function math_($className){
         $path = self::$LoaderDir.__FUNCTION__."/".$className.".class.php";
@@ -58,6 +79,14 @@ class Loader{
             echo "正在自动加载类".__FUNCTION__.":{$className}<br>";
         }
     }
+        // 加载 接口 
+    public static function implements_($className){
+        $path = self::$LoaderDir.__FUNCTION__."/".$className.".implements.php";
+        if(file_exists($path)){
+            include_once $path;
+            echo "正在自动加载接口".__FUNCTION__.":{$className}<br>";
+        }
+    }
         // 原始 根目录 加载类
     public static function __autoload($className){
         $path = self::$LoaderDir.$className.".class.php";
@@ -84,6 +113,7 @@ spl_autoload_register("Loader::final_");
 spl_autoload_register("Loader::abstruct_");
 spl_autoload_register("Loader::upfile_");
 spl_autoload_register("Loader::GD_");
+spl_autoload_register("Loader::implements_");
 
 */
 

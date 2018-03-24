@@ -2,10 +2,14 @@
 
 require_once "./class/Loader.class.php"; // 包含自动加载类  必须用 require 否则 不执行
 Loader::$LoaderDir= "./class/";
-spl_autoload_register("Loader::othert_");
+
+spl_autoload_register("Loader::other_");
+spl_autoload_register("Loader::tem1_");
+spl_autoload_register("Loader::tem2_");
 spl_autoload_register("Loader::math_");
 spl_autoload_register("Loader::final_");
 spl_autoload_register("Loader::abstruct_");
+spl_autoload_register("Loader::implements_"); //接口
 spl_autoload_register("Loader::__autoload");
 
 //机器 与汽车 类
@@ -90,9 +94,28 @@ var_dump($pdo2->findOne($sql));
 
 echo circle::PI."<br>";
 
-$aa = new aaa();
+// 魔术变量
+$iman1 =new iman();
+$iman1->show();
+var_dump($iman1);
+$iman1->age  = 1;
+$iman1->age;
+var_dump($iman1);
+iman::a(2,3);
+// image::upPicPW();
 
-image::upPicPW();
+// 命名空间
+// 默认的 使用 全局 tem 类 头部无命名空间的 so 找不到
+use \tem1_\tem; //设置为全局 
+use \tem1_\tem as tem1; // 别名
+use \tem2_\tem as tem2;
+// @$tem1 = new tem();
+$tem1 = new tem(); // use 定义了 全局 下 的 tem 空间
+$tem11 = new \tem1_\tem();
+$tem21 = new \tem2_\tem();
+echo "使用别名<br>";
+$tem12 = new tem1;
+$tem22 = new tem2;
 
 ?>
 

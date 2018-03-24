@@ -1,10 +1,19 @@
 <?php
 @include_once "../abstruct/animal.class.php";
     // 继承 抽象 类
-class dog extends animal
+class dog extends DogClass
 {
+
+    public static $objsCount=0; // 静态初始值
+    public $name;
+    public $weight; // 单位 kg
+    public $color;
     // public static $objsCount =0;
     private $master; // 绑定 使用者
+            // 必须 实现 所有 抽象类链 方法,子抽象类可以 提前 实现
+        public function test(){
+
+        }
          public function eat(){
                 // 当前 类  被继承  子类调用 此函数   返回的是  当前类 的值
             return self::$weight+=1;
@@ -45,6 +54,7 @@ class dog extends animal
     }
 
     function __destruct(){
+        echo "{$this->name}被销毁<br>";
         dog::$objsCount-=1;
     }
 }
